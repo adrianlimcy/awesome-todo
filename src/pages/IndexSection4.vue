@@ -53,7 +53,7 @@
     },
     components: {
       // 'task' : Task
-      'task' : require('components/Task.vue').default
+      'task' : require('components/Section4Task.vue').default
     }
 
   }
