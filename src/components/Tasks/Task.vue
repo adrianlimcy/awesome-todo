@@ -1,9 +1,13 @@
 <template>
-  <q-item
+  <!-- <q-item
   @click="task.completed=!task.completed"
+  :class="!task.completed ? 'bg-orange-1' : 'bg-green-1'" clickable v-ripple> -->
+  <q-item
+  @click="updateTask({id: id, updates: {completed: !task.completed}})"
   :class="!task.completed ? 'bg-orange-1' : 'bg-green-1'" clickable v-ripple>
     <q-item-section side top>
-      <q-checkbox v-model="task.completed" />
+      <!-- <q-checkbox v-model="task.completed" /> -->
+      <q-checkbox :value="task.completed" class="no-pointer-events"/>
     </q-item-section>
 
     <q-item-section>
@@ -28,12 +32,35 @@
         </div>
       </div>
     </q-item-section>
+    <q-item-section side>
+      <q-btn
+      @click.stop="promptToDelete(id)"
+      flat
+      round
+      dense
+      color="red"
+      icon="delete" />
+    </q-item-section>
   </q-item>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
-    props: ['task', 'id']
+    props: ['task', 'id'],
+    methods: {
+      ...mapActions('tasks', ['updateTask', 'deleteTask']),
+      promptToDelete(id) {
+        this.$q.dialog({
+          title: 'Confirm',
+          message: 'Really delete?',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          this.deleteTask(id)
+        })
+      }
+    }
   }
 </script>
 
