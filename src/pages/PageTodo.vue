@@ -1,6 +1,6 @@
 <template>
 <q-page class="q-pa-md">
-  <q-list separator bordered>
+  <q-list separator bordered v-if="Object.keys(tasks).length">
     <task v-for="(task, key) in tasks"
     :key="key"
     :task="task"
@@ -30,7 +30,7 @@
         <q-btn flat label="OK" color="primary" v-close-popup />
       </q-card-actions>
     </q-card> -->
-    <add-task></add-task>
+    <add-task @close="showAddTask=false"/>
   </q-dialog>
 </q-page>
 </template>
@@ -42,7 +42,7 @@ import {
 export default {
   data() {
     return {
-      showAddTask: true
+      showAddTask: false
     }
   },
   // data() {
