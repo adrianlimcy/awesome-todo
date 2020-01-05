@@ -3,8 +3,9 @@
   <div class="row q-mb-lg">
     <search />
   </div>
-  <no-tasks v-if="!Object.keys(tasksTodo).length"/>
-  <tasks-todo v-else :tasksTodo="tasksTodo" />
+  <no-tasks v-if="!Object.keys(tasksTodo).length && !search"/>
+  <p v-if="search && !Object.keys(tasksTodo).length && !Object.keys(tasksCompleted).length">No search results</p>
+  <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
   <tasks-completed :tasksCompleted="tasksCompleted" v-if="Object.keys(tasksCompleted).length"/>
   <div class="absolute-bottom text-center q-mb-lg">
     <q-btn @click="showAddTask = true" round color="primary" size="24px" icon="add" />
@@ -16,9 +17,7 @@
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -29,7 +28,8 @@ export default {
     // tasks() {
     //   return this.$store.getters['tasks/tasks']
     // }
-    ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted'])
+    ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted']),
+    ...mapState('tasks', ['search'])
   },
   mounted() {
     this.$root.$on('showAddTask', () => {
