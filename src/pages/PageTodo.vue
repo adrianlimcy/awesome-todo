@@ -1,5 +1,8 @@
 <template>
 <q-page class="q-pa-md">
+  <div class="row q-mb-lg">
+    <search />
+  </div>
   <no-tasks v-if="!Object.keys(tasksTodo).length"/>
   <tasks-todo v-else :tasksTodo="tasksTodo" />
   <tasks-completed :tasksCompleted="tasksCompleted" v-if="Object.keys(tasksCompleted).length"/>
@@ -38,7 +41,8 @@ export default {
     'add-task': require('components/Tasks/Modals/AddTask.vue').default,
     'tasks-todo': require('components/Tasks/TasksTodo.vue').default,
     'tasks-completed': require('components/Tasks/tasksCompleted.vue').default,
-    'no-tasks': require('components/Tasks/NoTasks.vue').default
+    'no-tasks': require('components/Tasks/NoTasks.vue').default,
+    'search': require('components/Tasks/Tools/Search.vue').default
   }
 }
 </script>
