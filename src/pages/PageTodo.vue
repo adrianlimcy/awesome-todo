@@ -7,7 +7,7 @@
     </div>
     <p v-if="search && !Object.keys(tasksTodo).length && !Object.keys(tasksCompleted).length">No search results</p>
     <q-scroll-area class="q-scroll-area-tasks">
-      <no-tasks v-if="!Object.keys(tasksTodo).length && !search"/>
+      <no-tasks v-if="!Object.keys(tasksTodo).length && !search && !settings.showTasksInOneList"/>
       <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
       <tasks-completed :tasksCompleted="tasksCompleted" v-if="Object.keys(tasksCompleted).length" class="q-mb-xl"/>
     </q-scroll-area>
@@ -34,6 +34,7 @@ export default {
     //   return this.$store.getters['tasks/tasks']
     // }
     ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted']),
+    ...mapGetters('settings', ['settings']),
     ...mapState('tasks', ['search'])
   },
   mounted() {
