@@ -1,6 +1,5 @@
 <template>
   <div class="row q-mb-sm">
-    <!-- <q-input outlined v-model="taskToSubmit.name" label="Task name" class="col" :rules="[val => !!val || 'Field is required']" ref="name" autofocus clearable /> -->
     <q-input
       outlined
       :value="name"
