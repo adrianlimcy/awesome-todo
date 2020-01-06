@@ -47,8 +47,10 @@ module.exports = function (ctx) {
         'QCardSection',
         'QCardActions',
         'QSpace'
-        ],
-      directives: ['ClosePopup'],
+      ],
+      directives: [
+        'ClosePopup'
+      ],
 
       // Quasar plugins
       plugins: ['Dialog']
