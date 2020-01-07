@@ -53,7 +53,10 @@ module.exports = function (ctx) {
       ],
 
       // Quasar plugins
-      plugins: ['Dialog']
+      plugins: [
+        'Dialog',
+        'LocalStorage'
+      ]
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
