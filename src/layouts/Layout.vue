@@ -3,18 +3,18 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
-        <!-- <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          icon="menu"
-          aria-label="Menu"
-        /> -->
+        <!-- <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" icon="menu" aria-label="Menu"/> -->
 
         <q-toolbar-title class="absolute-center">
           Awesome Todo
         </q-toolbar-title>
+
+        <q-btn
+        to="/auth"
+        flat
+        class="absolute-right"
+        icon-right="account_circle"
+        label="Login" />
 
       </q-toolbar>
     </q-header>
