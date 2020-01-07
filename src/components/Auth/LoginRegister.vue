@@ -5,7 +5,7 @@
         <template v-slot:avatar>
           <q-icon name="account_circle" color="primary" />
         </template>
-        Register to access your Todos anywhere
+        {{tab | titleCase}} to access your Todos anywhere
       </q-banner>
     </div>
     <div class="row q-mb-md">
@@ -15,6 +15,7 @@
       label="Email"
       :rules="[val=>isValidEmailAddress(val) || 'Please enter a valid email address']"
       lazy-rules
+      ref="email"
       stack-label
       class="col" />
     </div>
@@ -26,18 +27,20 @@
       label="Password"
       :rules="[val=>val.length >= 6 || 'Please enter at least 6 characters']"
       lazy-rules
+      ref="password"
       stack-label
       class="col" />
     </div>
     <div class="row">
       <q-space />
-      <q-btn color="primary" label="Register" type="submit"/>
+      <q-btn color="primary" :label="tab" type="submit"/>
     </div>
   </q-form>
 </template>
 
 <script>
 export default {
+  props: ['tab'],
   data() {
     return {
       formData: {
@@ -52,7 +55,22 @@ export default {
       return re.test(String(email).toLowerCase());
     },
     submitForm() {
-      console.log('submitForm');
+      // console.log('submitForm');
+      this.$refs.email.validate()
+      this.$refs.password.validate()
+      if (!this.$refs.email.hasError && !this.$refs.password.hasError) {
+        // console.log('register user');
+        if (this.tab == 'login') {
+          console.log('login the user');
+        } else {
+          console.log('register user');
+        }
+      }
+    }
+  },
+  filters: {
+    titleCase(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 }
