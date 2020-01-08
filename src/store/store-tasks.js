@@ -24,7 +24,8 @@ const state = {
     // }
   },
   search: '',
-  sort: 'name'
+  sort: 'name',
+  tasksDownloaded: false
 }
 
 const mutations = {
@@ -39,31 +40,50 @@ const mutations = {
   addTask(state, payload) {
     Vue.set(state.tasks, payload.id, payload.task)
   },
+  clearTasks(state) {
+    state.tasks={}
+  },
   setSearch(state, value) {
     state.search = value
   },
   setSort(state, value) {
     state.sort = value
+  },
+  setTasksDownloaded(state, value) {
+    state.tasksDownloaded = value
   }
-
 }
 
 const actions = {
-  updateTask({commit}, payload) {
-    // console.log('updateTask action')
-    // console.log('payload: ', payload)
-    commit('updateTask', payload)
+  // updateTask({commit}, payload) {
+  //   // console.log('updateTask action')
+  //   // console.log('payload: ', payload)
+  //   commit('updateTask', payload)
+  // },
+  updateTask({dispatch}, payload) {
+    dispatch('fbUpdateTask', payload)
   },
-  deleteTask({commit}, id) {
-    commit('deleteTask', id)
+  // deleteTask({commit}, id) {
+  //   commit('deleteTask', id)
+  // },
+  deleteTask({dispatch}, id) {
+    dispatch('fbDeleteTask', id)
   },
-  addTask({commit}, task) {
+  // addTask({commit}, task) {
+  //   let taskId = uid()
+  //   let payload = {
+  //     id: taskId,
+  //     task: task
+  //   }
+  //   commit('addTask', payload)
+  // },
+  addTask({dispatch}, task) {
     let taskId = uid()
     let payload = {
       id: taskId,
       task: task
     }
-    commit('addTask', payload)
+    dispatch('fbAddTask', payload)
   },
   setSearch({commit}, value) {
     commit('setSearch', value)
@@ -76,6 +96,11 @@ const actions = {
     // console.log(firebaseAuth.currentUser.uid);
     let userId = firebaseAuth.currentUser.uid
     let userTasks = firebaseDb.ref('tasks/'+ userId)
+
+    //initia check for data
+    userTasks.once('value', snapshot=> {
+      commit('setTasksDownloaded', true)
+    })
 
     //child added
     userTasks.on('child_added', snapshot => {
@@ -104,6 +129,22 @@ const actions = {
       let taskId = snapshot.key
       commit('deleteTask', taskId)
     })
+  },
+  fbAddTask({}, payload) {
+    // console.log('fbAddTask payload:', payload);
+    let userId = firebaseAuth.currentUser.uid
+    let taskRef = firebaseDb.ref('tasks/' + userId + '/' + payload.id)
+    taskRef.set(payload.task)
+  },
+  fbUpdateTask({}, payload) {
+    let userId = firebaseAuth.currentUser.uid
+    let taskRef = firebaseDb.ref('tasks/' + userId + '/' + payload.id)
+    taskRef.update(payload.updates)
+  },
+  fbDeleteTask({}, taskId) {
+    let userId = firebaseAuth.currentUser.uid
+    let taskRef = firebaseDb.ref('tasks/' + userId + '/' + taskId)
+    taskRef.remove()
   }
 }
 
