@@ -57,8 +57,15 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Dialog',
-        'LocalStorage'
-      ]
+        'LocalStorage',
+        'Notify'
+      ],
+      config: {
+        notify: {
+            icon: 'announcement',
+            color: 'warning'
+        }
+      }
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
