@@ -98,7 +98,7 @@ const actions = {
     let userId = firebaseAuth.currentUser.uid
     let userTasks = firebaseDb.ref('tasks/'+ userId)
 
-    //initia check for data
+    //initial check for data
     userTasks.once('value', snapshot=> {
       commit('setTasksDownloaded', true)
     }, error => {
