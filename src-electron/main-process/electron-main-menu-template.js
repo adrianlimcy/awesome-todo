@@ -2,6 +2,7 @@ import { app } from 'electron'
 import {mainWindow} from './electron-main'
 
 const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
 export const template = [
   // { role: 'appMenu' }
   ...(isMac ? [{
@@ -25,13 +26,35 @@ export const template = [
       { role: 'quit' }
     ]
   }] : []),
+
+  ...(isWin ? [{
+    label: 'File',
+    submenu: [
+      {
+        label: 'Settings',
+        accelerator: 'CmdOrCtrl+,',
+        click() {
+          mainWindow.webContents.send('show-settings')
+        }
+      },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+
   // { role: 'fileMenu' }
-  {
+  ...(isMac ? [{
     label: 'File',
     submenu: [
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
-  },
+  }] : []),
+  // {
+  //   label: 'File',
+  //   submenu: [
+  //     isMac ? { role: 'close' } : { role: 'quit' }
+  //   ]
+  // },
   // { role: 'editMenu' }
   {
     label: 'Edit',
