@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.cordova.quasar.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.cordova.quasar.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Awesome Todo</name>
     <description>A Quasar Framework app</description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
@@ -18,6 +18,21 @@
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+        <splash density="land-hdpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="land-ldpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="land-mdpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="land-xhdpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="port-hdpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="port-ldpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="port-mdpi" src="../app-resources/android/splash/splash.9.png" />
+        <splash density="port-xhdpi" src="../app-resources/android/splash/splash.9.png" />
+        <icon density="ldpi" src="../app-resources/android/icons/icon-36-ldpi.png" />
+        <icon density="mdpi" src="../app-resources/android/icons/icon-48-mdpi.png" />
+        <icon density="hdpi" src="../app-resources/android/icons/icon-72-hdpi.png" />
+        <icon density="xhdpi" src="../app-resources/android/icons/icon-96-xhdpi.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
