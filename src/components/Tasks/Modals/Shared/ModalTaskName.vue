@@ -5,7 +5,7 @@
       :value="name"
       @input="$emit('update:name', $event)"
       :rules="[val => !!val || 'Field is required']"
-      autofocus
+      v-autofocus="{delayCordova: 300}"
       v-select-all
       ref="name"
       label="Task name"
@@ -16,10 +16,12 @@
 
 <script>
 import { selectAll } from 'src/directives/directive-select-all'
+import { autofocus } from 'src/directives/directive-autofocus'
 export default {
   props: ['name'],
   directives: {
-    selectAll
+    selectAll,
+    autofocus
   }
 }
 </script>

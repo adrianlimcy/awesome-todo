@@ -14,6 +14,7 @@
       v-model="formData.email"
       label="Email"
       :rules="[val=>isValidEmailAddress(val) || 'Please enter a valid email address']"
+      type="email"
       lazy-rules
       ref="email"
       stack-label
